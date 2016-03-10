@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["何永能"]
   spec.email         = ["yongneng.he@dianping.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{Show csv file description.}
+  spec.description   = %q{Show csv file description.}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.executables   = ["dcsv"]
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.10"
