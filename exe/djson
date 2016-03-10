@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+require 'json'
+
+offset = 0
+limit = 1
+
+if ARGV.length >= 3
+  limit = ARGV[2].to_i
+  offset = ARGV[1].to_i
+end
+if ARGV.length == 2
+  limit = ARGV[1].to_i
+  offset = 0
+end
+if ARGV.length >= 1
+  file_name = ARGV[0]
+else
+  puts "参数不够!"
+  exit(0)
+end
+
+reader = File.open(file_name, 'r')
+
+offset.times { reader.readline }
+limit.times do
+  content = reader.readline
+  columns = JSON.parse content
+  fields = columns.map { |key, value| key }
+  width = fields.map { |field| field.to_s.length }.max
+  fields.each do |field|
+    printf("%#{width}s: %s\n", field.to_s, columns[field])
+  end
+  puts "="*80
+end
+
+reader.close
