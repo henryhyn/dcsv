@@ -1,4 +1,16 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
-puts "Hello world!"
+file_name = ARGV[0]
+reader = File.open(file_name, 'r')
+header = reader.readline
+content = reader.readline
+fields = header.chomp.split("\t")
+columns = content.chomp.split("\t")
+width = fields.map { |field| field.length }.max
+
+fields.each_with_index do |field, index|
+  printf("%#{width}s: %s\n", field, columns[index])
+end
+
+reader.close
