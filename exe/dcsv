@@ -1,16 +1,37 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
-file_name = ARGV[0]
+offset = 0
+limit = 1
+
+if ARGV.length >= 3
+  limit = ARGV[2].to_i
+  offset = ARGV[1].to_i
+end
+if ARGV.length == 2
+  limit = ARGV[1].to_i
+  offset = 0
+end
+if ARGV.length >= 1
+  file_name = ARGV[0]
+else
+  puts "参数不够!"
+  exit(0)
+end
+
 reader = File.open(file_name, 'r')
 header = reader.readline
-content = reader.readline
 fields = header.chomp.split("\t")
-columns = content.chomp.split("\t")
 width = fields.map { |field| field.length }.max
 
-fields.each_with_index do |field, index|
-  printf("%#{width}s: %s\n", field, columns[index])
+offset.times { reader.readline }
+limit.times do
+  content = reader.readline
+  columns = content.chomp.split("\t")
+  fields.each_with_index do |field, index|
+    printf("%#{width}s: %s\n", field, columns[index])
+  end
+  puts "="*80
 end
 
 reader.close
